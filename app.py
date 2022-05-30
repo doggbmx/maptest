@@ -34,10 +34,15 @@ def base():
         # height=350
         # folium_map = folium.Map(location=[-25.30216509196748   , -57.58115017370211], zoom_start=20)
     )
-    lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071]]
+    points = Points.query.all()
+    listita = []
+    for point in points:
+        listita.append([point.lat, point.lon])
+        print(listita)
+    lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
 
-    for i in lista:
-        print(i) 
+    for i in listita:
+        #print(i) 
         folium.Marker(
     
 
