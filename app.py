@@ -5,6 +5,7 @@ import folium
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/database.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -37,7 +38,6 @@ def base():
 
     for i in lista:
         print(i) 
-        # for x in i:
         folium.Marker(
     
 
@@ -48,8 +48,11 @@ def base():
     return map._repr_html_()
 
 
-@app.route("/crear-bache")
+@app.route("/crear-bache", methods = ['POST', 'GET'])
 def crearbache():
+    form = CargarForm()
+
+
     if request.method == 'POST':
         point = Points(
             lat=request.form['lat'],
@@ -58,6 +61,8 @@ def crearbache():
         db.session.add(point)
         db.session.commit()
         return redirect(url_for('base'))
+    else:
+        return render_template('crear-bache.html', form = form)
 
 
 @app.route("/open-street-map")
