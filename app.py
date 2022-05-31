@@ -14,10 +14,12 @@ class Points(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lat = db.Column(db.String(200))
     lon = db.Column(db.String(200))
+    bache_name = db.Column(db.String(200))
 
-    def __init__(self, lat, lon):
+    def __init__(self, lat, lon, bache_name):
         self.lat = lat
         self.lon = lon
+        self.bache_name = bache_name
 
 
 class CargarForm(FlaskForm):
@@ -37,18 +39,18 @@ def base():
     points = Points.query.all()
     listita = []
     for point in points:
-        listita.append([point.lat, point.lon])
-        print(listita)
-    lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
+        listita.append([point.lat, point.lon, point.bache_name])
+        # print(listita)
+    # lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
 
-    for i in listita:
-        #print(i) 
+    for x in listita:
+        mark = x[0],x[1]
+        print(x)
+        # # print(i)
         folium.Marker(
-    
-
-            location=i,
-            popup="<b>Marker here</b>",
-            tooltip="Click Here!"
+            location=mark, 
+            popup=f"<b>{x[2]}</b>",
+            tooltip="bache!"
         ).add_to(map)
     return map._repr_html_()
 
@@ -62,6 +64,7 @@ def crearbache():
         point = Points(
             lat=request.form['lat'],
             lon=request.form['lon'],
+            bache_name = request.form['bache_name']
         )
         db.session.add(point)
         db.session.commit()

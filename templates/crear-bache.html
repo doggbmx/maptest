@@ -3,11 +3,15 @@
 
     <form class="form-signin" method="POST" action="/crear-bache">
         <h2 class="form-signin-heading">Mete Bache</h2>
-        <input id="about" name="lat" rows="3"
+        <label for="lat">Latitud</label>
+        <input id="lat" name="lat" rows="3"
         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"></input>
-        <input id="about" name="lon" rows="3"
+        <label for="lom">Longitud</label>
+        <input id="lon" name="lon" rows="3"
         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"></input>
-
+        <label for="bache_name">Nombre</label>
+        <input id="bache_name" name="bache_name" rows="3"
+        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"></input>
 
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cargar bache</button>
