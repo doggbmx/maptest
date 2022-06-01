@@ -1,4 +1,5 @@
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, request
+# from flask import Flask, redirect, render_template, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import StringField
 import folium
@@ -6,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/database.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -14,10 +15,15 @@ class Points(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     lat = db.Column(db.String(200))
     lon = db.Column(db.String(200))
+    bache_name = db.Column(db.String(200))
 
-    def __init__(self, lat, lon):
+    def __init__(self, lat, lon, bache_name):
         self.lat = lat
         self.lon = lon
+        self.bache_name = bache_name
+
+    def __repr__(self) -> str:
+        return f'<Hola: {self.bache_name}>'
 
 
 class CargarForm(FlaskForm):
@@ -39,7 +45,7 @@ def base():
     for point in points:
         listita.append([point.lat, point.lon])
         print(listita)
-    lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
+    # lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
 
     for i in listita:
         #print(i) 
@@ -47,8 +53,8 @@ def base():
     
 
             location=i,
-            popup="<b>Marker here</b>",
-            tooltip="Click Here!"
+            popup="<b>point.bache_name</b>",
+            tooltip="bache!"
         ).add_to(map)
     return map._repr_html_()
 
