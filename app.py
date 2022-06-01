@@ -47,8 +47,10 @@ def base():
         print(listita)
     # lista = [[-25.302058396540463, -56.58112871603071], [-25.302458396540463, -55.58122871603071], [-25.3035769, -57.5833092]]
 
-    for i in listita:
-        #print(i) 
+    for x in listita:
+        mark = x[0],x[1]
+        print(x)
+        # # print(i)
         folium.Marker(
     
 
@@ -68,6 +70,7 @@ def crearbache():
         point = Points(
             lat=request.form['lat'],
             lon=request.form['lon'],
+            bache_name = request.form['bache_name']
         )
         db.session.add(point)
         db.session.commit()
